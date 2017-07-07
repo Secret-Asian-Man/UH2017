@@ -1,0 +1,9 @@
+make[2]: *** No rule to make target `CMakeFiles/parsers.dir/build'.  Stop.
+make[1]: *** [CMakeFiles/parsers.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+CMakeFiles/mobility.dir/src/mobility.cpp.o: In function `main':
+mobility.cpp:(.text+0x736): undefined reference to `PyRun_SimpleStringFlags'
+collect2: error: ld returned 1 exit status
+make[2]: *** [/home/swarmie/rover_workspace/devel/lib/mobility/mobility] Error 1
+make[1]: *** [CMakeFiles/mobility.dir/all] Error 2
+make: *** [all] Error 2

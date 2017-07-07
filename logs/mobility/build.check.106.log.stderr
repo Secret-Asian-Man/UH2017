@@ -1,0 +1,6 @@
+CMake Error: File /home/swarmie/rover_workspace/src/mobility/config.h.in does not exist.
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/CMakeLists.txt:35 (configure_file):
+  configure_file Problem configuring file
+
+
+make: *** [cmake_check_build_system] Error 1

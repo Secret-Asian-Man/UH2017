@@ -1,0 +1,21 @@
+In file included from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:14:0:
+/opt/ros/indigo/include/angles/angles.h:41:1: error: expected unqualified-id before ‘namespace’
+ namespace angles
+ ^
+In file included from /usr/include/boost/units/detail/utility.hpp:20:0,
+                 from /usr/include/boost/exception/detail/type_info.hpp:19,
+                 from /usr/include/boost/exception/detail/object_hex_dump.hpp:15,
+                 from /usr/include/boost/exception/to_string_stub.hpp:16,
+                 from /usr/include/boost/exception/info.hpp:16,
+                 from /usr/include/boost/exception/detail/exception_ptr.hpp:20,
+                 from /usr/include/boost/exception_ptr.hpp:9,
+                 from /usr/include/boost/thread/future.hpp:28,
+                 from /usr/include/boost/thread.hpp:24,
+                 from /opt/ros/indigo/include/tf/transform_listener.h:43,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:17:
+/usr/include/c++/4.8/cxxabi.h:46:37: error: expected declaration before end of line
+ #pragma GCC visibility push(default)
+                                     ^
+make[2]: *** [CMakeFiles/mobility.dir/src/mobility.cpp.o] Error 1
+make[1]: *** [CMakeFiles/mobility.dir/all] Error 2
+make: *** [all] Error 2

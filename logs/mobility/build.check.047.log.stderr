@@ -1,0 +1,9 @@
+You have called ADD_LIBRARY for library mobility without any source files. This typically indicates a problem with your CMakeLists.txt file
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/CMakeLists.txt:26 (add_executable):
+  add_executable cannot create target "mobility" because another target with
+  the same name already exists.  The existing target is a shared library
+  created in source directory "/home/swarmie/rover_workspace/src/mobility".
+  See documentation for policy CMP0002 for more details.
+
+
+make: *** [cmake_check_build_system] Error 1

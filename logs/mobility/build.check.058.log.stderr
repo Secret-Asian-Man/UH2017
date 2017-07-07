@@ -1,0 +1,18 @@
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/CMakeLists.txt:25 (find_package):
+  By not providing "FindSFML-2.4.2.cmake" in CMAKE_MODULE_PATH this project
+  has asked CMake to find a package configuration file provided by
+  "SFML-2.4.2", but CMake did not find one.
+
+  Could not find a package configuration file provided by "SFML-2.4.2" with
+  any of the following names:
+
+    SFML-2.4.2Config.cmake
+    sfml-2.4.2-config.cmake
+
+  Add the installation prefix of "SFML-2.4.2" to CMAKE_PREFIX_PATH or set
+  "SFML-2.4.2_DIR" to a directory containing one of the above files.  If
+  "SFML-2.4.2" provides a separate development package or SDK, be sure it has
+  been installed.
+
+
+make: *** [cmake_check_build_system] Error 1

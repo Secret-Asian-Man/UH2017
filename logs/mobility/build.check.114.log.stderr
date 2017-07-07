@@ -1,0 +1,15 @@
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/SFML/FindSFML.cmake:91 (FILE):
+  file Internal CMake error when trying to open file:
+  /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Config.hpp
+  for reading.
+[36mCall Stack (most recent call first):[0m
+  CMakeLists.txt:57 (find_package)
+
+
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/SFML/FindSFML.cmake:355 (message):
+  SFML found but version too low (requested: 2.4.2, found: 1.x.x)
+[36mCall Stack (most recent call first):[0m
+  CMakeLists.txt:57 (find_package)
+
+
+make: *** [cmake_check_build_system] Error 1

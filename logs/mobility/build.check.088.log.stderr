@@ -1,0 +1,5 @@
+CMake Error: Error in cmake code at
+/home/swarmie/rover_workspace/src/mobility/CMakeLists.txt:69:
+Parse error.  Expected "(", got newline with text "
+".
+make: *** [cmake_check_build_system] Error 1

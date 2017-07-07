@@ -1,0 +1,7 @@
+[31m[1mCMake Error[0m at /opt/ros/indigo/share/catkin/cmake/catkin_python_setup.cmake:141 (message):
+  The script 'mobility' as listed in 'setup.py' of 'mobility' doesn't exist
+[36mCall Stack (most recent call first):[0m
+  CMakeLists.txt:40 (catkin_python_setup)
+
+
+make: *** [cmake_check_build_system] Error 1

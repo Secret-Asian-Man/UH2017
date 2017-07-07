@@ -1,0 +1,6 @@
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/CMakeLists.txt:32 (install):
+  install TARGETS given target "mobility" which does not exist in this
+  directory.
+
+
+make: *** [cmake_check_build_system] Error 1

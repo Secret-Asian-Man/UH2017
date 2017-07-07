@@ -1,0 +1,46 @@
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:189:25: error: ‘String’ was not declared in this scope
+     mySoundClass(vector<String*> paths)
+                         ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:189:25: note: suggested alternatives:
+In file included from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:23:0:
+/opt/ros/indigo/include/std_msgs/String.h:47:52: note:   ‘std_msgs::String’
+ typedef ::std_msgs::String_<std::allocator<void> > String;
+                                                    ^
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System.hpp:42:0,
+                 from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:32,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System/String.hpp:45:23: note:   ‘sf::String’
+ class SFML_SYSTEM_API String
+                       ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:189:32: error: template argument 1 is invalid
+     mySoundClass(vector<String*> paths)
+                                ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:189:32: error: template argument 2 is invalid
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:249:12: error: ‘String’ was not declared in this scope
+     vector<String*> paths;
+            ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:249:12: note: suggested alternatives:
+In file included from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:23:0:
+/opt/ros/indigo/include/std_msgs/String.h:47:52: note:   ‘std_msgs::String’
+ typedef ::std_msgs::String_<std::allocator<void> > String;
+                                                    ^
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System.hpp:42:0,
+                 from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:32,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System/String.hpp:45:23: note:   ‘sf::String’
+ class SFML_SYSTEM_API String
+                       ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:249:19: error: template argument 1 is invalid
+     vector<String*> paths;
+                   ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:249:19: error: template argument 2 is invalid
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp: In constructor ‘mySoundClass::mySoundClass(int)’:
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:193:39: error: request for member ‘size’ in ‘paths’, which is of non-class type ‘int’
+         for (unsigned int i=0;i<paths.size();i++)
+                                       ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:194:30: error: invalid types ‘int[unsigned int]’ for array subscript
+             addSound(*paths[i]);
+                              ^
+make[2]: *** [CMakeFiles/mobility.dir/src/mobility.cpp.o] Error 1
+make[1]: *** [CMakeFiles/mobility.dir/all] Error 2
+make: *** [all] Error 2

@@ -1,0 +1,8 @@
+[31m[1mCMake Error[0m at /opt/ros/indigo/share/catkin/cmake/catkin_python_setup.cmake:79 (message):
+  catkin_python_setup() version in setup.py (...) differs from version in
+  package.xml (0.2.0)
+[36mCall Stack (most recent call first):[0m
+  CMakeLists.txt:40 (catkin_python_setup)
+
+
+make: *** [cmake_check_build_system] Error 1

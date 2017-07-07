@@ -1,0 +1,5 @@
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/lib/libsfml-system-d.so: undefined reference to `std::__throw_out_of_range_fmt(char const*, ...)@GLIBCXX_3.4.20'
+collect2: error: ld returned 1 exit status
+make[2]: *** [/home/swarmie/rover_workspace/devel/lib/mobility/mobility] Error 1
+make[1]: *** [CMakeFiles/mobility.dir/all] Error 2
+make: *** [all] Error 2

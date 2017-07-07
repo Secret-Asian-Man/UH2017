@@ -1,0 +1,13 @@
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp: In function ‘int main(int, char**)’:
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:173:19: error: ‘Py_Initialize’ was not declared in this scope
+     Py_Initialize();
+                   ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:174:60: error: ‘PyRun_SimpleString’ was not declared in this scope
+     PyRun_SimpleString("print('@@@@@@@@@@@@@@@@@@@@@@@@@')");
+                                                            ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:175:17: error: ‘Py_Finalize’ was not declared in this scope
+     Py_Finalize();
+                 ^
+make[2]: *** [CMakeFiles/mobility.dir/src/mobility.cpp.o] Error 1
+make[1]: *** [CMakeFiles/mobility.dir/all] Error 2
+make: *** [all] Error 2

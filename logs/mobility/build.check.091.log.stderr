@@ -1,0 +1,14 @@
+CMake Error: File /home/swarmie/rover_workspace/src/mobility/config.h.in does not exist.
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/CMakeLists.txt:35 (configure_file):
+  configure_file Problem configuring file
+
+
+[31m[1mCMake Error[0m at /usr/share/cmake-2.8/Modules/CPack.cmake:395 (message):
+  CPack license resource file:
+  "/home/swarmie/rover_workspace/src/mobility/COPYING" could not be found.
+[36mCall Stack (most recent call first):[0m
+  /usr/share/cmake-2.8/Modules/CPack.cmake:400 (cpack_check_file_exists)
+  CMakeLists.txt:88 (include)
+
+
+make: *** [cmake_check_build_system] Error 1

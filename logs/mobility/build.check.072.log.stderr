@@ -1,0 +1,10 @@
+[31m[1mCMake Error[0m at /home/swarmie/rover_workspace/src/mobility/CMakeLists.txt:53 (add_executable):
+  Cannot find source file:
+
+    mobility
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .m .M .mm .h .hh .h++ .hm .hpp
+  .hxx .in .txx
+
+
+make: *** [cmake_check_build_system] Error 1

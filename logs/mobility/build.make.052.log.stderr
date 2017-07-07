@@ -1,0 +1,151 @@
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:187:25: error: ‘String’ was not declared in this scope
+     mySoundClass(vector<String*> paths)
+                         ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:187:25: note: suggested alternatives:
+In file included from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:21:0:
+/opt/ros/indigo/include/std_msgs/String.h:47:52: note:   ‘std_msgs::String’
+ typedef ::std_msgs::String_<std::allocator<void> > String;
+                                                    ^
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System.hpp:42:0,
+                 from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:32,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System/String.hpp:45:23: note:   ‘sf::String’
+ class SFML_SYSTEM_API String
+                       ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:187:32: error: template argument 1 is invalid
+     mySoundClass(vector<String*> paths)
+                                ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:187:32: error: template argument 2 is invalid
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:245:12: error: ‘SoundBuffer’ was not declared in this scope
+     vector<SoundBuffer*> buffers;
+            ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:245:12: note: suggested alternative:
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:38:0,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio/SoundBuffer.hpp:49:22: note:   ‘sf::SoundBuffer’
+ class SFML_AUDIO_API SoundBuffer : AlResource
+                      ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:245:24: error: template argument 1 is invalid
+     vector<SoundBuffer*> buffers;
+                        ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:245:24: error: template argument 2 is invalid
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:246:12: error: ‘Sound’ was not declared in this scope
+     vector<Sound*> sounds;
+            ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:246:12: note: suggested alternative:
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:37:0,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio/Sound.hpp:45:22: note:   ‘sf::Sound’
+ class SFML_AUDIO_API Sound : public SoundSource
+                      ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:246:18: error: template argument 1 is invalid
+     vector<Sound*> sounds;
+                  ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:246:18: error: template argument 2 is invalid
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:247:12: error: ‘String’ was not declared in this scope
+     vector<String*> paths;
+            ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:247:12: note: suggested alternatives:
+In file included from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:21:0:
+/opt/ros/indigo/include/std_msgs/String.h:47:52: note:   ‘std_msgs::String’
+ typedef ::std_msgs::String_<std::allocator<void> > String;
+                                                    ^
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System.hpp:42:0,
+                 from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:32,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/System/String.hpp:45:23: note:   ‘sf::String’
+ class SFML_SYSTEM_API String
+                       ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:247:19: error: template argument 1 is invalid
+     vector<String*> paths;
+                   ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:247:19: error: template argument 2 is invalid
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:248:5: error: ‘Thread’ does not name a type
+     Thread *thread;
+     ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp: In constructor ‘mySoundClass::mySoundClass()’:
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:184:9: error: ‘thread’ was not declared in this scope
+         thread = NULL;
+         ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:184:9: note: suggested alternative:
+In file included from /usr/include/boost/thread/thread_only.hpp:22:0,
+                 from /usr/include/boost/thread/thread.hpp:12,
+                 from /usr/include/boost/thread.hpp:13,
+                 from /opt/ros/indigo/include/tf/transform_listener.h:43,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:15:
+/usr/include/boost/thread/detail/thread.hpp:160:29: note:   ‘boost::thread’
+     class BOOST_THREAD_DECL thread
+                             ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp: In constructor ‘mySoundClass::mySoundClass(int)’:
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:191:39: error: request for member ‘size’ in ‘paths’, which is of non-class type ‘int’
+         for (unsigned int i=0;i<paths.size();i++)
+                                       ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:192:30: error: invalid types ‘int[unsigned int]’ for array subscript
+             addSound(*paths[i]);
+                              ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp: In member function ‘void mySoundClass::addSound(std::string)’:
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:198:9: error: ‘SoundBuffer’ was not declared in this scope
+         SoundBuffer *buffer = new SoundBuffer; //a SoundBuffer preloads a sound, aka gets it ready for use. Here we have an array of them for multiple sound effects.
+         ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:198:9: note: suggested alternative:
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:38:0,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio/SoundBuffer.hpp:49:22: note:   ‘sf::SoundBuffer’
+ class SFML_AUDIO_API SoundBuffer : AlResource
+                      ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:198:22: error: ‘buffer’ was not declared in this scope
+         SoundBuffer *buffer = new SoundBuffer; //a SoundBuffer preloads a sound, aka gets it ready for use. Here we have an array of them for multiple sound effects.
+                      ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:198:35: error: expected type-specifier before ‘SoundBuffer’
+         SoundBuffer *buffer = new SoundBuffer; //a SoundBuffer preloads a sound, aka gets it ready for use. Here we have an array of them for multiple sound effects.
+                                   ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:198:35: error: expected ‘;’ before ‘SoundBuffer’
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:199:9: error: ‘Sound’ was not declared in this scope
+         Sound *sound = new Sound; //a Sound is given a SoundBuffer so it may be played. Here we have an array of them for multiple sound effects.
+         ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:199:9: note: suggested alternative:
+In file included from /home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio.hpp:37:0,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:5:
+/home/swarmie/rover_workspace/src/mobility/cmake_modules/SFML-2.4.2/include/SFML/Audio/Sound.hpp:45:22: note:   ‘sf::Sound’
+ class SFML_AUDIO_API Sound : public SoundSource
+                      ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:199:16: error: ‘sound’ was not declared in this scope
+         Sound *sound = new Sound; //a Sound is given a SoundBuffer so it may be played. Here we have an array of them for multiple sound effects.
+                ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:199:28: error: expected type-specifier before ‘Sound’
+         Sound *sound = new Sound; //a Sound is given a SoundBuffer so it may be played. Here we have an array of them for multiple sound effects.
+                            ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:199:28: error: expected ‘;’ before ‘Sound’
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:208:17: error: request for member ‘push_back’ in ‘((mySoundClass*)this)->mySoundClass::buffers’, which is of non-class type ‘int’
+         buffers.push_back(buffer);
+                 ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:209:16: error: request for member ‘push_back’ in ‘((mySoundClass*)this)->mySoundClass::sounds’, which is of non-class type ‘int’
+         sounds.push_back(sound);
+                ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp: In member function ‘void mySoundClass::playSound(unsigned int)’:
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:216:33: error: request for member ‘size’ in ‘((mySoundClass*)this)->mySoundClass::sounds’, which is of non-class type ‘int’
+         if(newSoundID >= sounds.size())
+                                 ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:220:9: error: ‘thread’ was not declared in this scope
+         thread = new Thread(&mySoundClass::soundThread,this);
+         ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:220:9: note: suggested alternative:
+In file included from /usr/include/boost/thread/thread_only.hpp:22:0,
+                 from /usr/include/boost/thread/thread.hpp:12,
+                 from /usr/include/boost/thread.hpp:13,
+                 from /opt/ros/indigo/include/tf/transform_listener.h:43,
+                 from /home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:15:
+/usr/include/boost/thread/detail/thread.hpp:160:29: note:   ‘boost::thread’
+     class BOOST_THREAD_DECL thread
+                             ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:220:22: error: expected type-specifier before ‘Thread’
+         thread = new Thread(&mySoundClass::soundThread,this);
+                      ^
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:220:22: error: expected ‘;’ before ‘Thread’
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp: In member function ‘void mySoundClass::soundThread()’:
+/home/swarmie/rover_workspace/src/mobility/src/mobility.cpp:239:23: error: invalid types ‘int[unsigned int]’ for array subscript
+         sounds[soundID]->play();
+                       ^
+make[2]: *** [CMakeFiles/mobility.dir/src/mobility.cpp.o] Error 1
+make[1]: *** [CMakeFiles/mobility.dir/all] Error 2
+make: *** [all] Error 2

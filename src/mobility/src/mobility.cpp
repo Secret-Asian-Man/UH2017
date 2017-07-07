@@ -1,5 +1,14 @@
 #include <ros/ros.h>
 
+#include <Python.h>
+
+#include <SFML/Audio.hpp>
+
+#define RESOURCE_DIRECTORY "/home/swarmie/rover_workspace/resources/sounds/"
+
+enum soundNames{Transform, Rotate, SkidSteer, GoHome, ReadyClaw, PickUp, GetBlock, GotBlock, GiveUp, DropOff, Automode, Initialized};
+
+
 // ROS libraries
 #include <angles/angles.h>
 #include <random_numbers/random_numbers.h>
@@ -38,6 +47,8 @@ random_numbers::RandomNumberGenerator* rng;
 PickUpController pickUpController;
 DropOffController dropOffController;
 SearchController searchController;
+
+string previousState;
 
 // Mobility Logic Functions
 void sendDriveCommand(double linearVel, double angularVel);
@@ -166,7 +177,109 @@ void publishStatusTimerEventHandler(const ros::TimerEvent& event);
 void targetDetectedReset(const ros::TimerEvent& event);
 void publishHeartBeatTimerEventHandler(const ros::TimerEvent& event);
 
+class mySoundClass
+{
+public:
+    mySoundClass()
+    {
+        soundID = 0;
+        size = 0;
+        thread = NULL;
+    }
+
+    mySoundClass(vector<string*> paths)
+    {
+        soundID = 0;
+
+        for (unsigned int i=0;i<paths.size();i++)
+            addSound(*paths[i]);
+    }
+
+    //public functions
+    void addSound(string path)
+    {
+        sf::SoundBuffer *buffer = new sf::SoundBuffer; //a SoundBuffer preloads a sound, aka gets it ready for use. Here we have an array of them for multiple sound effects.
+        sf::Sound *sound = new sf::Sound; //a Sound is given a SoundBuffer so it may be played. Here we have an array of them for multiple sound effects.
+
+        string temp= RESOURCE_DIRECTORY;
+        temp=temp+path; //adds the destination folder path ("../resources/") to the front of the file name.
+
+        if (!buffer->loadFromFile(temp)) //ie: load the 1st SoundBuffer using the 1st soundEffectName into the 1st sound
+            cout<<"File failed to load!!!"<<endl;
+        sound->setBuffer(*buffer);
+
+        buffers.push_back(buffer);
+        sounds.push_back(sound);
+
+        ++size;
+    }
+
+    void playSound(unsigned int newSoundID)
+    {
+
+        soundID = newSoundID;
+        //thread = new sf::Thread(&mySoundClass::soundThread,this);
+        //thread->launch();
+
+        //thread->wait();
+        //sf::sleep(buffers[soundID]->getDuration());
+
+	sounds[soundID]->play();
+
+        return;
+    }  
+
+    void stopSound(unsigned int newSoundID)
+    {
+        sounds[newSoundID]->stop();
+
+        return;
+    }
+
+    unsigned int getSize()
+    {
+        return size;
+    }
+
+    //privates
+private:
+    //private functions
+    void soundThread()
+    {
+        sounds[soundID]->play();
+
+        return;
+    }
+
+    //private member variables
+    vector<sf::SoundBuffer*> buffers;
+    vector<sf::Sound*> sounds;
+    vector<string*> paths;
+    sf::Thread *thread;
+    unsigned int soundID;
+    unsigned int size;
+};
+
+mySoundClass soundClass;
+
 int main(int argc, char **argv) {
+    
+    //Py_Initialize();
+    //PyRun_SimpleString("from os.path import join\n" "file = open(join('/home/swarmie/Desktop','IRONWOMAN.txt'), 'w')\n" "file.close()\n");
+    //Py_Finalize();
+
+    soundClass.addSound("Transform.wav");
+    soundClass.addSound("Rotate.wav");
+    soundClass.addSound("SkidSteer.wav");
+    soundClass.addSound("GoHome.wav");
+    soundClass.addSound("ReadyClaw.wav");
+    soundClass.addSound("PickUp.wav");
+    soundClass.addSound("GetBlock.wav");
+    soundClass.addSound("GotBlock.wav");
+    soundClass.addSound("GiveUp.wav");
+    soundClass.addSound("DropOff.wav");
+    soundClass.addSound("Automode.wav");
+    soundClass.addSound("Initialized.wav");
 
     gethostname(host, sizeof (host));
     string hostname(host);
@@ -263,7 +376,7 @@ void mobilityStateMachine(const ros::TimerEvent&) {
 
     // Robot is in automode
     if (currentMode == 2 || currentMode == 3) {
-
+	//soundClass.playSound(Automode);
 
         // time since timerStartTime was set to current time
         timerTimeElapsed = time(0) - timerStartTime;
@@ -271,6 +384,9 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         // init code goes here. (code that runs only once at start of
         // auto mode but wont work in main goes here)
         if (!init) {
+
+	    soundClass.playSound(Initialized);
+
             if (timerTimeElapsed > startDelayInSeconds) {
                 // Set the location of the center circle location in the map
                 // frame based upon our current average location on the map.
@@ -289,6 +405,9 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         // If no collected or detected blocks set fingers
         // to open wide and raised position.
         if (!targetCollected && !targetDetected) {
+
+	    //soundClass.playSound(ReadyClaw);
+
             // set gripper
             std_msgs::Float32 angle;
 
@@ -309,8 +428,15 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         case STATE_MACHINE_TRANSFORM: {
             stateMachineMsg.data = "TRANSFORMING";
 
+	    if (previousState != "TRANSFORMING")
+	    {
+		soundClass.playSound(Transform);
+		previousState = "TRANSFORMING";
+ 	    }
+
             // If returning with a target
             if (targetCollected && !avoidingObstacle) {
+	        //soundClass.playSound(GoHome);
                 // calculate the euclidean distance between
                 // centerLocation and currentLocation
                 dropOffController.setCenterDist(hypot(centerLocation.x - currentLocation.x, centerLocation.y - currentLocation.y));
@@ -328,6 +454,11 @@ void mobilityStateMachine(const ros::TimerEvent&) {
                 if (result.fingerAngle != -1) {
                     angle.data = result.fingerAngle;
                     fingerAnglePublish.publish(angle);
+		    if (previousState != "DROPOFF")
+	   	    {
+		        soundClass.playSound(DropOff);
+		        previousState = "DROPOFF";
+ 	            }
                 }
 
                 if (result.wristAngle != -1) {
@@ -344,7 +475,7 @@ void mobilityStateMachine(const ros::TimerEvent&) {
 
                     // move back to transform step
                     stateMachineState = STATE_MACHINE_TRANSFORM;
-                    reachedCollectionPoint = false;;
+                    reachedCollectionPoint = false;
                     centerLocationOdom = currentLocation;
 
                     dropOffController.reset();
@@ -384,7 +515,14 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         // Rotate left or right depending on sign of angle
         // Stay in this state until angle is minimized
         case STATE_MACHINE_ROTATE: {
+            //soundClass.playSound(Rotate);
             stateMachineMsg.data = "ROTATING";
+
+	    if (previousState != "ROTATING")
+	    {
+		soundClass.playSound(Rotate);
+		previousState = "ROTATING";
+ 	    }
             // Calculate the diffrence between current and desired
             // heading in radians.
             float errorYaw = angles::shortest_angular_distance(currentLocation.theta, goalLocation.theta);
@@ -405,8 +543,14 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         // Drive forward
         // Stay in this state until angle is at least PI/2
         case STATE_MACHINE_SKID_STEER: {
+            //soundClass.playSound(SkidSteer);
             stateMachineMsg.data = "SKID_STEER";
 
+	    if (previousState != "SKID_STEER")
+	    {
+		soundClass.playSound(SkidSteer);
+		previousState = "SKID_STEER";
+ 	    }
             // calculate the distance between current and desired heading in radians
             float errorYaw = angles::shortest_angular_distance(currentLocation.theta, goalLocation.theta);
 
@@ -429,16 +573,21 @@ void mobilityStateMachine(const ros::TimerEvent&) {
                 stateMachineState = STATE_MACHINE_TRANSFORM;
             }
 
+
             break;
         }
 
         case STATE_MACHINE_PICKUP: {
             stateMachineMsg.data = "PICKUP";
-
             PickUpResult result;
 
             // we see a block and have not picked one up yet
             if (targetDetected && !targetCollected) {
+		//if (previousState != "PICKUP")
+	    	//{
+		    soundClass.playSound(PickUp);
+		//    previousState = "PICKUP";
+ 	    	//}
                 result = pickUpController.pickUpSelectedTarget(blockBlock);
                 sendDriveCommand(result.cmdVel,result.angleError);
                 std_msgs::Float32 angle;
@@ -456,6 +605,8 @@ void mobilityStateMachine(const ros::TimerEvent&) {
                 }
 
                 if (result.giveUp) {
+		    soundClass.stopSound(PickUp);
+		    soundClass.playSound(GiveUp);
                     targetDetected = false;
                     stateMachineState = STATE_MACHINE_TRANSFORM;
                     sendDriveCommand(0,0);
@@ -463,6 +614,7 @@ void mobilityStateMachine(const ros::TimerEvent&) {
                 }
 
                 if (result.pickedUp) {
+		    soundClass.playSound(GotBlock);
                     pickUpController.reset();
 
                     // assume target has been picked up by gripper
@@ -569,6 +721,8 @@ void targetHandler(const apriltags_ros::AprilTagDetectionArray::ConstPtr& messag
 
         // if we see the center and we dont have a target collected
         if (centerSeen && !targetCollected) {
+
+	    
 
             float centeringTurn = 0.15; //radians
             stateMachineState = STATE_MACHINE_TRANSFORM;
