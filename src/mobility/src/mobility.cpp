@@ -37,8 +37,74 @@ enum soundNames{Transform, Rotate, SkidSteer, GoHome, ReadyClaw, PickUp, GetBloc
 #include <ros/ros.h>
 #include <signal.h>
 
-
 using namespace std;
+
+class mySoundClass
+{
+public:
+    mySoundClass()
+    {
+        soundID = 0;
+        size = 0;
+        thread = NULL;
+    }
+    mySoundClass(vector<string*> paths)
+    {
+        soundID = 0;
+        for (unsigned int i=0;i<paths.size();i++)
+            addSound(*paths[i]);
+    }
+
+    //public functions
+    void addSound(string path)
+    {
+        sf::SoundBuffer *buffer = new sf::SoundBuffer; //a SoundBuffer preloads a sound, aka gets it ready for use. Here we have an array of them for multiple sound effects.
+        sf::Sound *sound = new sf::Sound; //a Sound is given a SoundBuffer so it may be played. Here we have an array of them for multiple sound effects.
+        string temp= RESOURCE_DIRECTORY;
+        temp=temp+path; //adds the destination folder path ("../resources/") to the front of the file name.
+        if (!buffer->loadFromFile(temp)) //ie: load the 1st SoundBuffer using the 1st soundEffectName into the 1st sound
+            cout<<"File failed to load!!!"<<endl;
+        sound->setBuffer(*buffer);
+        buffers.push_back(buffer);
+        sounds.push_back(sound);
+        ++size;
+    }
+
+    void playSound(unsigned int newSoundID)
+    {
+        soundID = newSoundID;
+	sounds[soundID]->play();
+        return;
+    }  
+
+    void stopSound(unsigned int newSoundID)
+    {
+        sounds[newSoundID]->stop();
+        return;
+    }
+    unsigned int getSize()
+    {
+        return size;
+    }
+
+    //privates
+private:
+    //private functions
+    void soundThread()
+    {
+        sounds[soundID]->play();
+
+        return;
+    }
+
+    //private member variables
+    vector<sf::SoundBuffer*> buffers;
+    vector<sf::Sound*> sounds;
+    vector<string*> paths;
+    sf::Thread *thread;
+    unsigned int soundID;
+    unsigned int size;
+};
 
 // Random number generator
 random_numbers::RandomNumberGenerator* rng;
@@ -177,96 +243,15 @@ void publishStatusTimerEventHandler(const ros::TimerEvent& event);
 void targetDetectedReset(const ros::TimerEvent& event);
 void publishHeartBeatTimerEventHandler(const ros::TimerEvent& event);
 
-class mySoundClass
-{
-public:
-    mySoundClass()
-    {
-        soundID = 0;
-        size = 0;
-        thread = NULL;
-    }
-
-    mySoundClass(vector<string*> paths)
-    {
-        soundID = 0;
-
-        for (unsigned int i=0;i<paths.size();i++)
-            addSound(*paths[i]);
-    }
-
-    //public functions
-    void addSound(string path)
-    {
-        sf::SoundBuffer *buffer = new sf::SoundBuffer; //a SoundBuffer preloads a sound, aka gets it ready for use. Here we have an array of them for multiple sound effects.
-        sf::Sound *sound = new sf::Sound; //a Sound is given a SoundBuffer so it may be played. Here we have an array of them for multiple sound effects.
-
-        string temp= RESOURCE_DIRECTORY;
-        temp=temp+path; //adds the destination folder path ("../resources/") to the front of the file name.
-
-        if (!buffer->loadFromFile(temp)) //ie: load the 1st SoundBuffer using the 1st soundEffectName into the 1st sound
-            cout<<"File failed to load!!!"<<endl;
-        sound->setBuffer(*buffer);
-
-        buffers.push_back(buffer);
-        sounds.push_back(sound);
-
-        ++size;
-    }
-
-    void playSound(unsigned int newSoundID)
-    {
-
-        soundID = newSoundID;
-        //thread = new sf::Thread(&mySoundClass::soundThread,this);
-        //thread->launch();
-
-        //thread->wait();
-        //sf::sleep(buffers[soundID]->getDuration());
-
-	sounds[soundID]->play();
-
-        return;
-    }  
-
-    void stopSound(unsigned int newSoundID)
-    {
-        sounds[newSoundID]->stop();
-
-        return;
-    }
-
-    unsigned int getSize()
-    {
-        return size;
-    }
-
-    //privates
-private:
-    //private functions
-    void soundThread()
-    {
-        sounds[soundID]->play();
-
-        return;
-    }
-
-    //private member variables
-    vector<sf::SoundBuffer*> buffers;
-    vector<sf::Sound*> sounds;
-    vector<string*> paths;
-    sf::Thread *thread;
-    unsigned int soundID;
-    unsigned int size;
-};
 
 mySoundClass soundClass;
+void TransformLED();
+void RotateLED();
+void SkidSteerLED();
+void TurnOffLED();
+void PickUpLED();
 
 int main(int argc, char **argv) {
-    
-    //Py_Initialize();
-    //PyRun_SimpleString("from os.path import join\n" "file = open(join('/home/swarmie/Desktop','IRONWOMAN.txt'), 'w')\n" "file.close()\n");
-    //Py_Finalize();
 
     soundClass.addSound("Transform.wav");
     soundClass.addSound("Rotate.wav");
@@ -427,9 +412,9 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         // If no adjustment needed, select new goal
         case STATE_MACHINE_TRANSFORM: {
             stateMachineMsg.data = "TRANSFORMING";
-
 	    if (previousState != "TRANSFORMING")
 	    {
+		TransformLED();
 		soundClass.playSound(Transform);
 		previousState = "TRANSFORMING";
  	    }
@@ -515,11 +500,10 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         // Rotate left or right depending on sign of angle
         // Stay in this state until angle is minimized
         case STATE_MACHINE_ROTATE: {
-            //soundClass.playSound(Rotate);
             stateMachineMsg.data = "ROTATING";
-
 	    if (previousState != "ROTATING")
 	    {
+		RotateLED();
 		soundClass.playSound(Rotate);
 		previousState = "ROTATING";
  	    }
@@ -543,11 +527,10 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         // Drive forward
         // Stay in this state until angle is at least PI/2
         case STATE_MACHINE_SKID_STEER: {
-            //soundClass.playSound(SkidSteer);
             stateMachineMsg.data = "SKID_STEER";
-
 	    if (previousState != "SKID_STEER")
 	    {
+		SkidSteerLED();
 		soundClass.playSound(SkidSteer);
 		previousState = "SKID_STEER";
  	    }
@@ -580,14 +563,15 @@ void mobilityStateMachine(const ros::TimerEvent&) {
         case STATE_MACHINE_PICKUP: {
             stateMachineMsg.data = "PICKUP";
             PickUpResult result;
-
             // we see a block and have not picked one up yet
             if (targetDetected && !targetCollected) {
-		//if (previousState != "PICKUP")
-	    	//{
-		    soundClass.playSound(PickUp);
-		//    previousState = "PICKUP";
- 	    	//}
+		soundClass.playSound(PickUp);
+		if (previousState != "PICKUP")
+	    	{
+                    PickUpLED();
+		    previousState = "PICKUP";
+ 	    	}
+		
                 result = pickUpController.pickUpSelectedTarget(blockBlock);
                 sendDriveCommand(result.cmdVel,result.angleError);
                 std_msgs::Float32 angle;
@@ -942,4 +926,52 @@ void publishHeartBeatTimerEventHandler(const ros::TimerEvent&) {
     std_msgs::String msg;
     msg.data = "";
     heartbeatPublisher.publish(msg);
+}
+
+void TransformLED() {
+    Py_Initialize();
+        PyRun_SimpleString("from blinkstick import blinkstick\n" 
+                           "import time\n" 
+                           "bstick=blinkstick.find_first()\n" 
+                           "bstick.set_led_data(0, [0,255,0] * 16)\n"); 
+
+    Py_Finalize();
+}
+
+void SkidSteerLED() {
+    Py_Initialize();
+        PyRun_SimpleString("from blinkstick import blinkstick\n" 
+                           "import time\n" 
+                           "bstick=blinkstick.find_first()\n" 
+                           "bstick.set_led_data(0, [0,0,255] * 16)\n");
+
+    Py_Finalize();
+}
+
+void RotateLED() {
+    Py_Initialize();
+        PyRun_SimpleString("from blinkstick import blinkstick\n" 
+                           "import time\n" 
+                           "bstick=blinkstick.find_first()\n" 
+                           "bstick.set_led_data(0, [255,255,0] * 16)\n"); 
+
+    Py_Finalize();
+}
+
+
+void PickUpLED() {
+    Py_Initialize();
+        PyRun_SimpleString("from blinkstick import blinkstick\n"  
+                           "import time\n" 
+                           "bstick=blinkstick.find_first()\n"  
+                           "bstick.set_led_data(0, [0,255,255] * 16)\n");
+    Py_Finalize();
+}
+
+void TurnOffLED() {
+    Py_Initialize();
+    PyRun_SimpleString("from blinkstick import blinkstick\n"  
+                       "bstick=blinkstick.find_first()\n"  
+                       "bstick.set_led_data(0, [0,0,0] * 16)\n");
+    Py_Finalize();
 }
